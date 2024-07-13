@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+// If the elevatedButtonTheme was not a static property, you have  to create an instance of the class before you can aaccess it 
+// AppElevatedButtonTheme().elevatedButtonTheme
+// AppElevatedButtonTheme.elevatedButtonTheme
+
 class AppElevatedButtonTheme {
   AppElevatedButtonTheme._();
 

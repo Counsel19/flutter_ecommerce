@@ -1,3 +1,4 @@
+import 'package:eccommerce/pages/home_screen.dart';
 import 'package:eccommerce/pages/login_screen.dart';
 import 'package:eccommerce/pages/onbaord_screen.dart';
 import 'package:eccommerce/pages/signup_screen.dart';
@@ -12,7 +13,9 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: "Flutter Ecommerce",
       theme: AppTheme.theme,
-      home: const OnboardScreen(),
+
+      // home: const OnboardScreen(),
+      home: const HomeScreen(),
       routes: {
         "/login": (context) => const LoginScreen(),
         "/sign-up": (context) => const SignupScreen(),

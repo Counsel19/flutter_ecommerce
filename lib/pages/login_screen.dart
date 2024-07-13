@@ -1,7 +1,7 @@
+import 'package:eccommerce/pages/navigation_menu.dart';
 import 'package:eccommerce/utils/constants/app_sizes.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -49,7 +49,14 @@ class LoginScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const NavigationMenu(),
+                      ),
+                    );
+                  },
                   child: const Text("Login"),
                 ),
               ),
