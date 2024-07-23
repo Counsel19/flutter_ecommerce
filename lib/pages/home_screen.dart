@@ -1,5 +1,6 @@
 import 'package:eccommerce/widgets/home_widgets/category_home.dart';
 import 'package:eccommerce/widgets/home_widgets/home_banner.dart';
+import 'package:eccommerce/widgets/home_widgets/recent_products.dart';
 import 'package:eccommerce/widgets/home_widgets/search_container.dart';
 import 'package:eccommerce/widgets/shared/cart_counter_icon.dart';
 import 'package:eccommerce/widgets/shared/custom_appbar.dart';
@@ -37,7 +38,8 @@ class HomeScreen extends StatelessWidget {
         ),
         const SearchContainer(),
         const HomeBanner(),
-        const CategoryHome()
+        const CategoryHome(),
+        const RecentProducts()
       ],
     )));
   }
