@@ -1,3 +1,4 @@
+import 'package:eccommerce/pages/cart_screen.dart';
 import 'package:flutter/material.dart';
 
 class CartCounterIcon extends StatelessWidget {
@@ -8,7 +9,10 @@ class CartCounterIcon extends StatelessWidget {
     return Stack(
       children: [
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const CartScreen()));
+          },
           icon: const Icon(Icons.shopping_bag),
         ),
         Positioned(

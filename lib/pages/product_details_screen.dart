@@ -2,6 +2,7 @@ import 'package:eccommerce/models/product.dart';
 import 'package:eccommerce/utils/constants/app_sizes.dart';
 import 'package:eccommerce/widgets/shared/cart_counter_icon.dart';
 import 'package:eccommerce/widgets/shared/section_title.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -70,7 +71,7 @@ class ProductDetailScreen extends StatelessWidget {
                             ))
                       ],
                     ),
-                      const SizedBox(
+                    const SizedBox(
                       height: AppSizes.spaceBetweenItems,
                     ),
                     const SectionTitle(title: "Description of Product"),
@@ -82,6 +83,26 @@ class ProductDetailScreen extends StatelessWidget {
                 ),
               )
             ],
+          ),
+          Positioned(
+            bottom: AppSizes.defualtPadding,
+            left: AppSizes.defualtPadding,
+            right: AppSizes.defualtPadding,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: Row(children: [
+                Expanded(
+                  child: ElevatedButton(
+                      onPressed: () {}, child: const Text("Add To Cart")),
+                ),
+                const SizedBox(
+                  width: 12,
+                ),
+                Expanded(
+                    child: OutlinedButton(
+                        onPressed: () {}, child: const Text("Buy Now"))),
+              ]),
+            ),
           )
         ],
       ),
