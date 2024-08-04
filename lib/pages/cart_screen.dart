@@ -2,6 +2,7 @@ import 'package:eccommerce/models/cart.dart';
 import 'package:eccommerce/providers/cart_provider.dart';
 import 'package:eccommerce/utils/constants/app_sizes.dart';
 import 'package:eccommerce/widgets/cart/cart_item.dart';
+import 'package:eccommerce/widgets/cart/order_summary.dart';
 import 'package:eccommerce/widgets/shared/cart_counter_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,12 +19,23 @@ class CartScreen extends ConsumerWidget {
           title: const Text("Your Cart"),
           actions: const [CartCounterIcon()],
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(AppSizes.defualtPadding),
-          child: ListView.builder(
-            itemCount: allCartItem.length,
-            itemBuilder: (context, index) =>
-                CartItem(cartItem: allCartItem[index]),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(AppSizes.defualtPadding),
+                child: ListView.builder(
+                  itemCount: allCartItem.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) =>
+                      CartItem(cartItem: allCartItem[index]),
+                ),
+              ),
+              const Padding(
+                  padding: EdgeInsets.all(AppSizes.defualtPadding),
+                  child: OrderSummary())
+            ],
           ),
         ));
   }

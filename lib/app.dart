@@ -3,6 +3,7 @@ import 'package:eccommerce/pages/login_screen.dart';
 import 'package:eccommerce/pages/onbaord_screen.dart';
 import 'package:eccommerce/pages/signup_screen.dart';
 import 'package:eccommerce/utils/themes/theme.dart';
+import 'package:eccommerce/widgets/shared/auth_checker.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
@@ -15,7 +16,7 @@ class App extends StatelessWidget {
       theme: AppTheme.theme,
 
       // home: const OnboardScreen(),
-      home: const HomeScreen(),
+      home: const AuthChecker(),
       routes: {
         "/login": (context) => const LoginScreen(),
         "/sign-up": (context) => const SignupScreen(),

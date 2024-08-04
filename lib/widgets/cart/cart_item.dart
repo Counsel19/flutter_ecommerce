@@ -15,7 +15,7 @@ class CartItem extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appCartProvider = ref.watch(cartProvider.notifier);
-     final cart = ref.watch(cartProvider);
+    final cart = ref.watch(cartProvider);
     final item = cart.firstWhere((item) => item.id == cartItem.id);
 
     void handleIncreaseQuantity() {
@@ -26,7 +26,10 @@ class CartItem extends ConsumerWidget {
       appCartProvider.decreaseQuantity(item);
     }
 
-    void handelDeleteCartItem() {}
+    void handelDeleteCartItem() {
+      appCartProvider.removeFromCart(item);
+    }
+
     return SizedBox(
       child: Row(
         children: [

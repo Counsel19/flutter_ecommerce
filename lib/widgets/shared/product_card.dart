@@ -1,16 +1,22 @@
+import 'package:eccommerce/models/cart.dart';
 import 'package:eccommerce/models/product.dart';
+import 'package:eccommerce/pages/cart_screen.dart';
 import 'package:eccommerce/pages/product_details_screen.dart';
+import 'package:eccommerce/providers/cart_provider.dart';
 import 'package:eccommerce/utils/constants/app_sizes.dart';
 import 'package:eccommerce/widgets/shared/rounded_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ProductCard extends StatelessWidget {
+class ProductCard extends ConsumerWidget {
   const ProductCard({super.key, required this.product});
 
   final Product product;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final allCart = ref.watch(cartProvider);
+    final isItemInCart = allCart.any((item) => item.productId == product.id);
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -67,16 +73,27 @@ class ProductCard extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        isItemInCart
+                            ? Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const CartScreen()))
+                            : ref.read(cartProvider.notifier).addToCart(Cart(
+                                productId: product.id,
+                                product: product,
+                                id: DateTime.now().toString(),
+                                quantity: 1));
+                      },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.all(0),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child: const Text(
-                        "Add to Cart",
-                        style: TextStyle(fontWeight: FontWeight.normal),
+                      child: Text(
+                        isItemInCart ? "View in Cart" : "Add to Cart",
+                        style: const TextStyle(fontWeight: FontWeight.normal),
                       ),
                     ),
                   )

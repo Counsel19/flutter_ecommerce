@@ -1,35 +1,32 @@
 import 'package:eccommerce/models/cart.dart';
-import 'package:eccommerce/services/product_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CartNotifier extends Notifier<List<Cart>> {
-  List<Cart> allCartItems = [
-    Cart(
-        productId: allProducts[0].id,
-        product: allProducts[0],
-        id: "1",
-        quantity: 1)
-  ];
+  List<Cart> allCartItems = [];
 
   @override
   List<Cart> build() {
     return allCartItems;
   }
 
-  bool checkIfItemInCart(Cart cartItem) {
-    return state.any((item) => item.id == cartItem.id);
+  bool checkIfItemInCart(String productId) {
+    return state.any((item) => item.productId == productId);
   }
 
   void addToCart(Cart cartItem) {
-    if (checkIfItemInCart(cartItem)) {
+    if (checkIfItemInCart(cartItem.productId)) {
       return;
     } else {
-      allCartItems.add(cartItem);
+      // tis wont work => Spread operator
+      // list2 = list1
+      // list2 = [ ...list1 ]
+      state = [...state, cartItem];
     }
+     calculateSubTotl();
   }
 
   void increaseQuantity(Cart cartItem) {
-    if (checkIfItemInCart(cartItem)) {
+    if (checkIfItemInCart(cartItem.productId)) {
       state = state
           .map((item) => item.id == cartItem.id
               ? Cart(
@@ -41,10 +38,11 @@ class CartNotifier extends Notifier<List<Cart>> {
               : item)
           .toList();
     }
+     calculateSubTotl();
   }
 
   void decreaseQuantity(Cart cartItem) {
-    if (checkIfItemInCart(cartItem)) {
+    if (checkIfItemInCart(cartItem.productId)) {
       state = state
           .map((item) => item.id == cartItem.id && item.quantity > 0
               ? Cart(
@@ -55,14 +53,23 @@ class CartNotifier extends Notifier<List<Cart>> {
                 )
               : item)
           .toList();
-      print(state);
     }
+    calculateSubTotl();
   }
 
   void removeFromCart(Cart cartItem) {
-    if (checkIfItemInCart(cartItem)) {
-      allCartItems.remove(cartItem);
+    if (checkIfItemInCart(cartItem.productId)) {
+      state = state.where((item) => item.id != cartItem.id).toList();
     }
+  }
+
+  double calculateSubTotl() {
+    double subTotal = 0;
+    state.forEach((item) {
+      subTotal += item.product.unitPrice * item.quantity;
+    });
+
+    return subTotal;
   }
 }
 
